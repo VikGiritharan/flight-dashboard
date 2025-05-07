@@ -4,6 +4,7 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import calendar
 import joblib
+import os
 
 # Load model components
 model = joblib.load('rf_model_light.joblib')
@@ -52,7 +53,32 @@ app.layout = html.Div([
         ),
     ], style={'width': '50%', 'margin': 'auto'}),
 
-    html.Div(id='prediction-output', style={'textAlign': 'center', 'marginTop': '40px'})
+    html.Div(id='prediction-output', style={'textAlign': 'center', 'marginTop': '40px'}),
+
+    html.Hr(),
+    html.Div([
+        html.H4("How Reliability is Calculated", style={'textAlign': 'center'}),
+        html.P("The reliability level is predicted using a composite score derived from multiple flight delay factors. These include:", style={'textAlign': 'center'}),
+        html.Ul([
+            html.Li("Proportion of delayed flights (delay ratio)"),
+            html.Li("Average arrival delay"),
+            html.Li("Cancellation and diversion rates"),
+            html.Li("Proportions of delay caused by: carriers, weather, NAS, security, and late aircraft")
+        ], style={'maxWidth': '700px', 'margin': 'auto'}),
+        html.P("Each factor is weighted based on importance and combined to produce a reliability score.", style={'textAlign': 'center'}),
+        html.P("Reliability categories are defined as:", style={'textAlign': 'center', 'marginTop': '10px'}),
+        html.Ul([
+            html.Li("Low: Composite score ≤ 0.2"),
+            html.Li("Medium: 0.2 < Score ≤ 0.4"),
+            html.Li("High: Score > 0.4")
+        ], style={'maxWidth': '700px', 'margin': 'auto'})
+    ], style={
+        'padding': '30px',
+        'border': '1px solid #ddd',
+        'borderRadius': '8px',
+        'backgroundColor': '#f9f9f9',
+        'marginTop': '40px'
+    })
 ])
 
 @app.callback(
@@ -98,13 +124,11 @@ def predict(month, carrier, airport):
         html.H2([html.Span(pred_label, style=prediction_style)]),
         html.H4("🔍 Prediction using Random Forest"),
         html.H5("📊 Confidence Levels:"),
-        html.P(f"Low: {pred_proba[0]*100:.2f}%"),
+        html.P(f"Low: {pred_proba[2]*100:.2f}%"),
         html.P(f"Medium: {pred_proba[1]*100:.2f}%"),
-        html.P(f"High: {pred_proba[2]*100:.2f}%"),
+        html.P(f"High: {pred_proba[0]*100:.2f}%"),
         disclaimer
     ])
-
-import os
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
