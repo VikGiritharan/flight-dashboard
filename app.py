@@ -58,7 +58,7 @@ app.layout = html.Div([
     html.Hr(),
     html.Div([
         html.H4("How Reliability is Calculated", style={'textAlign': 'center'}),
-        html.P("The reliability level is predicted using a composite score derived from multiple flight delay factors. These include:", style={'textAlign': 'center'}),
+        html.P("The reliability level is predicted using a composite score derived from multiple flight delay factors from data gathered between 2003-2023. These include:", style={'textAlign': 'center'}),
         html.Ul([
             html.Li("Proportion of delayed flights (delay ratio)"),
             html.Li("Average arrival delay"),
@@ -68,9 +68,9 @@ app.layout = html.Div([
         html.P("Each factor is weighted based on importance and combined to produce a reliability score.", style={'textAlign': 'center'}),
         html.P("Reliability categories are defined as:", style={'textAlign': 'center', 'marginTop': '10px'}),
         html.Ul([
-            html.Li("Low: Composite score ≤ 0.2"),
-            html.Li("Medium: 0.2 < Score ≤ 0.4"),
-            html.Li("High: Score > 0.4")
+            html.Li("Low: Composite Score ≤ 0.2"),
+            html.Li("Medium: 0.2 < Composite Score ≤ 0.4"),
+            html.Li("High: Composite Score > 0.4")
         ], style={'maxWidth': '700px', 'margin': 'auto'})
     ], style={
         'padding': '30px',
