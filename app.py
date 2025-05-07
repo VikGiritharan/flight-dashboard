@@ -12,7 +12,7 @@ model_columns = joblib.load('model_columns.joblib')
 
 # Load dataset
 df = pd.read_csv("dashboard_data_final.csv")
-ordinal_map = {0: "Low", 1: "Medium", 2: "High"}
+ordinal_map = {2: "Low", 1: "Medium", 0: "High"}
 
 # Color mapping for prediction styling
 color_map = {
