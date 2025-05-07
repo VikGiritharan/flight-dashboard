@@ -98,9 +98,9 @@ def predict(month, carrier, airport):
         html.H2([html.Span(pred_label, style=prediction_style)]),
         html.H4("🔍 Prediction using Random Forest"),
         html.H5("📊 Confidence Levels:"),
-        html.P(f"Low: {pred_proba[0]*100:.2f}%"),
+        html.P(f"Low: {pred_proba[2]*100:.2f}%"),
         html.P(f"Medium: {pred_proba[1]*100:.2f}%"),
-        html.P(f"High: {pred_proba[2]*100:.2f}%"),
+        html.P(f"High: {pred_proba[0]*100:.2f}%"),
         disclaimer
     ])
 
